@@ -1,6 +1,6 @@
 Vivado Simulator 2019.1
 Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2019.1/bin/unwrapped/win64.o/xelab.exe -wto 5d9cd8db35864c9a8b9705b43e763993 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot root_tb_3_behav xil_defaultlib.root_tb_3 xil_defaultlib.glbl -log elaborate.log 
+Running: C:/Xilinx/Vivado/2019.1/bin/unwrapped/win64.o/xelab.exe -wto 5d9cd8db35864c9a8b9705b43e763993 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot BIST_control_logic_tb_behav xil_defaultlib.BIST_control_logic_tb xil_defaultlib.glbl -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'busy_o' [C:/Users/199-4/lab2_5/lab2_5.srcs/sources_1/new/func.v:47]
@@ -8,10 +8,13 @@ Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.LFSR_generator
 Compiling module xil_defaultlib.multer
 Compiling module xil_defaultlib.cuberoot
 Compiling module xil_defaultlib.root
 Compiling module xil_defaultlib.func
-Compiling module xil_defaultlib.root_tb_3
+Compiling module xil_defaultlib.CRC8
+Compiling module xil_defaultlib.BIST_control_logic
+Compiling module xil_defaultlib.BIST_control_logic_tb
 Compiling module xil_defaultlib.glbl
-Built simulation snapshot root_tb_3_behav
+Built simulation snapshot BIST_control_logic_tb_behav

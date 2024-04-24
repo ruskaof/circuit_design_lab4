@@ -1,0 +1,5 @@
+Vivado Simulator 2019.1
+Time resolution is 1 ps
+Test  1 passed. , a =  0 , b=  0 y= 0 , y_exp = 0
+Test  8 passed. , a = 50 , b=100 y= 3 , y_exp = 3
+Test 10 passed. , a = 99 , b= 30 y= 4 , y_exp = 4

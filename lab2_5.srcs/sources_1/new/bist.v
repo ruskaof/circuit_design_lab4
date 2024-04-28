@@ -19,6 +19,7 @@ localparam FUNC_WAIT = 3'b011;
 localparam CRC8_PREPARE = 3'b100;
 localparam CRC8_WAIT = 3'b101;
 localparam NEW_TEST_START = 3'b110;
+localparam LFSR_WAIT = 3'b111;
 
 reg [2:0] state;
 
@@ -59,26 +60,30 @@ reg [7:0] lfsr1_result;
 reg lfsr1_start;
 reg [7:0] lfsr1_init = 8'b11111011;
 wire [7:0] lfsr1_o;
+wire lfsr1_busy;
 
 lfsr1 lfsr1_inst (
     .clk_i(clk_i),
     .rst_i(rst_i),
     .init_i(lfsr1_init),
     .start_i(lfsr1_start),
-    .result_o(lfsr1_o)
+    .result_o(lfsr1_o),
+    .busy_o(lfsr1_busy)
 );
 
 reg [7:0] lfsr2_result;
 reg lfsr2_start;
 reg [7:0] lfsr2_init = 8'b11111011;
 wire [7:0] lfsr2_o;
+wire lfsr2_busy;
 
 lfsr2 lfsr2_inst (
     .clk_i(clk_i),
     .rst_i(rst_i),
     .init_i(lfsr2_init),
     .start_i(lfsr2_start),
-    .result_o(lfsr2_o)
+    .result_o(lfsr2_o),
+    .busy_o(lfsr2_busy)
 );
 
 reg [2:0] crc8_input;
@@ -129,15 +134,22 @@ always @(posedge clk_i) begin
                     // $display("LFSR_PREPARE");
                     lfsr1_start <= 1;
                     lfsr2_start <= 1;
-                    state <= FUNC_PREPARE;
+                    state <= LFSR_WAIT;
+                end
+            LFSR_WAIT:
+                begin
+                    lfsr1_start <= 0;
+                    lfsr2_start <= 0;
+                    
+                    if (~lfsr1_start && ~lfsr2_start && ~lfsr1_busy && ~lfsr2_busy) begin
+                        state <= FUNC_PREPARE;
+                    end
                 end
             FUNC_PREPARE:
                 begin
                     // $display("FUNC_PREPARE");
                     lfsr1_init <= lfsr1_o;
                     lfsr2_init <= lfsr2_o;
-                    lfsr1_start <= 0;
-                    lfsr2_start <= 0;
 
                     if (is_test_now) begin
                         // $display("test mode enabled, launching function with a=%d, b=%d", lfsr1_o, lfsr2_o);

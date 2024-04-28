@@ -8,7 +8,8 @@ module bist(
     input [7:0] b_i,
     input test_btn_i,
     output reg [15:0] y_o,
-    output busy_o
+    output busy_o,
+    output test_mode_enabled_o
 );
 
 localparam IDLE = 3'b000;
@@ -28,6 +29,7 @@ reg [7:0] tests_n = 0;
 
 wire is_test_btn_o;
 reg is_test_now = 0;
+assign test_mode_enabled_o = is_test_now;
 reg prev_is_test_now = 0;
 
 button test_button (
@@ -163,6 +165,7 @@ always @(posedge clk_i) begin
                         end else begin
                             // $display("calc finished, returning to idle; Result is %d", y_func_o);
                             y_o [3:0] <= y_func_o;
+                            y_o [15:4] <= 0;
                             state <= IDLE;
                         end
                     end
@@ -180,7 +183,7 @@ always @(posedge clk_i) begin
                 end
             NEW_TEST_START:
                 begin
-                    $display("NEW_TEST_START, tests_iterations_n=%d, tests_n = %d", tests_iterations_n, tests_n);
+                    // $display("NEW_TEST_START, tests_iterations_n=%d, tests_n = %d", tests_iterations_n, tests_n);
                     if (tests_iterations_n == 255) begin
                         state <= IDLE;
                         tests_n <= tests_n + 1;

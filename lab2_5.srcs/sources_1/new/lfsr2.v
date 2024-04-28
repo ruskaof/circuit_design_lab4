@@ -9,7 +9,7 @@ module lfsr2 (
 );
 
 reg [7:0] register;
-assign result = register;
+assign result_o = register;
 
 always @(posedge clk_i) begin
     if (rst_i) begin

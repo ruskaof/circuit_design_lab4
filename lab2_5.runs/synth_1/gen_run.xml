@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1711983682">
-  <File Type="PA-TCL" Name="func.tcl"/>
-  <File Type="REPORTS-TCL" Name="func_reports.tcl"/>
-  <File Type="RDS-RDS" Name="func.vds"/>
-  <File Type="RDS-DCP" Name="func.dcp"/>
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1714332427">
+  <File Type="PA-TCL" Name="bist.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="bist_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="bist_reports.tcl"/>
+  <File Type="RDS-RDS" Name="bist.vds"/>
+  <File Type="RDS-UTIL" Name="bist_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="bist_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="bist.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="bist_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="bist_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/button.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/crc8.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/cuberoot.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/func.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/lfsr1.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/lfsr2.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -27,7 +67,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/func.v">
+    <File Path="$PSRCDIR/sources_1/new/bist.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -36,7 +76,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="func"/>
+      <Option Name="TopModule" Val="bist"/>
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>
   </FileSet>
@@ -62,8 +102,8 @@
   <Strategy Version="1" Minor="2">
     <StratHandle Name="Flow_AreaOptimized_high" Flow="Vivado Synthesis 2019"/>
     <Step Id="synth_design">
-      <Option Id="Directive">1</Option>
       <Option Id="ControlSetOptThreshold">1</Option>
+      <Option Id="Directive">1</Option>
     </Step>
   </Strategy>
 </GenRun>

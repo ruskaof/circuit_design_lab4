@@ -14,13 +14,13 @@ localparam TAKE_CUR_BIT = 2'b01;
 localparam CALC_CRC = 2'b10;  
 reg [1:0] state;
 
-assign busy = (state != IDLE);
+assign busy_o = (state != IDLE);
 
 reg [7:0] register;
 assign crc_o = register;
 
 reg bit;
-reg[1:0] counter;
+reg[2:0] counter;
 
 always @(posedge clk_i) begin
     if (rst_i) begin

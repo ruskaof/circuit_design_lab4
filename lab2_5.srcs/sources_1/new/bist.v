@@ -17,6 +17,7 @@ localparam FUNC_PREPARE = 3'b010;
 localparam FUNC_WAIT = 3'b011;
 localparam CRC8_PREPARE = 3'b100;
 localparam CRC8_WAIT = 3'b101;
+localparam NEW_TEST_START = 3'b110;
 
 reg [2:0] state;
 
@@ -51,7 +52,7 @@ func func_inst (
 
 reg [7:0] lfsr1_result;
 reg lfsr1_start;
-reg [7:0] lfsr1_init = 8'b10101010;
+reg [7:0] lfsr1_init = 8'b11111011;
 wire [7:0] lfsr1_o;
 
 lfsr1 lfsr1_inst (
@@ -64,7 +65,7 @@ lfsr1 lfsr1_inst (
 
 reg [7:0] lfsr2_result;
 reg lfsr2_start;
-reg [7:0] lfsr2_init = 8'b10101011;
+reg [7:0] lfsr2_init = 8'b11111011;
 wire [7:0] lfsr2_o;
 
 lfsr2 lfsr2_inst (
@@ -107,7 +108,7 @@ always @(posedge clk_i) begin
                 begin
                     if (start_i) begin
                         if (is_test) begin
-                            state <= LFSR_PREPARE;
+                            state <= NEW_TEST_START;
                         end else begin
                             state <= FUNC_PREPARE;
                         end
@@ -129,11 +130,13 @@ always @(posedge clk_i) begin
                     lfsr2_start <= 0;
 
                     if (is_test) begin
+                        $display("test mode enabled, launching function with a=%d, b=%d", lfsr1_o, lfsr2_o);
                         a_func_i <= lfsr1_o;
                         b_func_i <= lfsr2_o;
                         start_func_i <= 1;
                         state <= FUNC_WAIT;
                     end else begin
+                        $display("test mode disabled, launching function with a=%d, b=%d", a_i, b_i);
                         a_func_i <= a_i;
                         b_func_i <= b_i;
                         start_func_i <= 1;
@@ -142,7 +145,7 @@ always @(posedge clk_i) begin
                 end
             FUNC_WAIT:
                 begin
-                    $display("FUNC_WAIT");
+                    // $display("FUNC_WAIT");
                     start_func_i <= 0;
                     if (~busy_func_o && ~start_func_i) begin
                         if (is_test) begin
@@ -158,12 +161,23 @@ always @(posedge clk_i) begin
                 end
             CRC8_WAIT:
                 begin
+                    // $display("CRC8_WAIT");
                     crc8_start <= 0;
-                    if (~crc8_busy) begin
-                        tests_n <= tests_n + 1;
+                    if (~crc8_busy && ~crc8_start) begin
+                        $display("test finished, returning to idle; Result crc %d, tests_n %d", tests_n, crc8_o);
                         y_o [7:0] <= crc8_o;
                         y_o [15:8] <= tests_n;
+                        state <= NEW_TEST_START;
+                    end
+                end
+            NEW_TEST_START:
+                begin
+                    $display("NEW_TEST_START, tests_n=%d", tests_n);
+                    if (tests_n == 255) begin
                         state <= IDLE;
+                    end else begin
+                        tests_n <= tests_n + 1;
+                        state <= LFSR_PREPARE;
                     end
                 end
         endcase

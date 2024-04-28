@@ -69,14 +69,14 @@ always @(posedge clk_i) begin
                 end
             SQRT_SET:
                 begin
-                    $display("func SQRT_SET");
+                    // $display("func SQRT_SET");
                     x_r <= b_i;
                     start_r <= 1;
                     state <= SQRT_WAIT;
                 end
             SQRT_WAIT:
                 begin
-                    $display("func SQRT_WAIT");
+                    // $display("func SQRT_WAIT");
                     start_r <= 0;
                     if (~root_busy_r && ~start_r) begin
                         b_squared <= result_r;
@@ -85,17 +85,17 @@ always @(posedge clk_i) begin
                 end
             SQRT3_SET:
                 begin
-                    $display("func SQRT3_SET");
+                    // $display("func SQRT3_SET");
                     a_i_cr <= b_squared + a_i;
                     start_i_cr <= 1;
                     state <= SQRT3_WAIT;
                 end
             SQRT3_WAIT:
                 begin
-                    $display("func SQRT3_WAIT");
+                    // $display("func SQRT3_WAIT");
                     start_i_cr <= 0;
                     if (~busy_o_cr && ~start_i_cr) begin
-                        $display("func calc finished, result is %d", y_bo_cr);
+                        // $display("func calc finished, result is %d", y_bo_cr);
                         y_bo <= y_bo_cr;
                         state <= IDLE;
                     end

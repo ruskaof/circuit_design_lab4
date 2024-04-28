@@ -1,12 +1,12 @@
 `timescale 1ns / 1ps
 
-module CRC8(
-    input clk,
-    input rst,
-    input [3:0] data,
+module crc8(
+    input clk_i,
+    input rst_i,
+    input [2:0] data_i,
     input start_i,
-    output busy,
-    output wire [7:0] crc_res
+    output busy_o,
+    output wire [7:0] crc_o
 );
 
 localparam IDLE = 2'b00;
@@ -17,13 +17,13 @@ reg [1:0] state;
 assign busy = (state != IDLE);
 
 reg [7:0] register;
-assign crc_res = register;
+assign crc_o = register;
 
 reg bit;
-reg[1 : 0] counter;
+reg[1:0] counter;
 
-always @(posedge clk) begin
-    if (rst) begin
+always @(posedge clk_i) begin
+    if (rst_i) begin
         register <= 0;
         state <= IDLE;
         counter <= 0;
@@ -36,15 +36,14 @@ always @(posedge clk) begin
                             state <= TAKE_CUR_BIT;
                             bit <= 0;
                             counter <= 0;
-                            $display("CRC8 input: %d", data);
                         end
                     end
                 TAKE_CUR_BIT:
                     begin
-                        if (counter == 3) begin
+                        if (counter == 2) begin
                             state <= IDLE;
                         end else begin
-                            bit <= data[counter];
+                            bit <= data_i[counter];
                             state <= CALC_CRC;
                         end
                     end

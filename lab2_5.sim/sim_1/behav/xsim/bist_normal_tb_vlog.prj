@@ -1,0 +1,18 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../lab2_5.srcs/sources_1/new/bist.v" \
+"../../../../lab2_5.srcs/sources_1/new/button.v" \
+"../../../../lab2_5.srcs/sources_1/new/crc8.v" \
+"../../../../lab2_5.srcs/sources_1/new/cuberoot.v" \
+"../../../../lab2_5.srcs/sources_1/new/func.v" \
+"../../../../lab2_5.srcs/sources_1/new/lfsr1.v" \
+"../../../../lab2_5.srcs/sources_1/new/lfsr2.v" \
+"../../../../lab2_5.srcs/sources_1/new/multer.v" \
+"../../../../lab2_5.srcs/sources_1/new/root.v" \
+"../../../../lab2_5.srcs/sim_1/new/bist_normal_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

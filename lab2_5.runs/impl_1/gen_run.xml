@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1711983738">
-  <File Type="ROUTE-PWR" Name="route_report_power_0.rpt"/>
-  <File Type="PA-TCL" Name="func.tcl"/>
-  <File Type="INIT-TIMING" Name="init_report_timing_summary_0.rpt"/>
   <File Type="BITSTR-BMM" Name="func_bd.bmm"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="opt_report_methodology_0.rpt"/>
+  <File Type="INIT-TIMING" Name="init_report_timing_summary_0.rpt"/>
+  <File Type="ROUTE-PWR" Name="route_report_power_0.rpt"/>
+  <File Type="PA-TCL" Name="func.tcl"/>
+  <File Type="OPT-TIMING" Name="opt_report_timing_summary_0.rpt"/>
+  <File Type="OPT-DCP" Name="func_opt.dcp"/>
   <File Type="ROUTE-PWR-SUM" Name="route_report_power_summary_0.pb"/>
   <File Type="REPORTS-TCL" Name="func_reports.tcl"/>
-  <File Type="OPT-DCP" Name="func_opt.dcp"/>
-  <File Type="OPT-TIMING" Name="opt_report_timing_summary_0.rpt"/>
   <File Type="OPT-DRC" Name="opt_report_drc_0.rpt"/>
   <File Type="OPT-HWDEF" Name="func.hwdef"/>
   <File Type="PWROPT-DCP" Name="func_pwropt.dcp"/>
@@ -17,8 +17,8 @@
   <File Type="PLACE-UTIL" Name="place_report_utilization_0.rpt"/>
   <File Type="PLACE-UTIL-PB" Name="place_report_utilization_0.pb"/>
   <File Type="PLACE-PRE-SIMILARITY" Name="func_incremental_reuse_pre_placed.rpt"/>
-  <File Type="PLACE-TIMING" Name="place_report_timing_summary_0.rpt"/>
   <File Type="BG-BGN" Name="func.bgn"/>
+  <File Type="PLACE-TIMING" Name="place_report_timing_summary_0.rpt"/>
   <File Type="POSTPLACE-PWROPT-DCP" Name="func_postplace_pwropt.dcp"/>
   <File Type="BG-BIN" Name="func.bin"/>
   <File Type="PHYSOPT-DCP" Name="func_physopt.dcp"/>
@@ -28,8 +28,8 @@
   <File Type="ROUTE-BLACKBOX-DCP" Name="func_routed_bb.dcp"/>
   <File Type="ROUTE-DRC" Name="route_report_drc_0.rpt"/>
   <File Type="ROUTE-DRC-PB" Name="route_report_drc_0.pb"/>
-  <File Type="ROUTE-DRC-RPX" Name="route_report_drc_0.rpx"/>
   <File Type="BITSTR-LTX" Name="func.ltx"/>
+  <File Type="ROUTE-DRC-RPX" Name="route_report_drc_0.rpx"/>
   <File Type="BITSTR-MMI" Name="func.mmi"/>
   <File Type="BITSTR-SYSDEF" Name="func.sysdef"/>
   <File Type="ROUTE-PWR-RPX" Name="route_report_power_0.rpx"/>
@@ -38,6 +38,7 @@
   <File Type="ROUTE-TIMINGSUMMARY" Name="route_report_timing_summary_0.rpt"/>
   <File Type="ROUTE-TIMING-PB" Name="func_timing_summary_routed.pb"/>
   <File Type="ROUTE-TIMING-RPX" Name="route_report_timing_summary_0.rpx"/>
+  <File Type="RDI-RDI" Name="func.vdi"/>
   <File Type="ROUTE-CLK" Name="route_report_clock_utilization_0.rpt"/>
   <File Type="ROUTE-BUS-SKEW" Name="route_report_bus_skew_0.rpt"/>
   <File Type="ROUTE-BUS-SKEW-PB" Name="route_report_bus_skew_0.pb"/>
@@ -48,7 +49,6 @@
   <File Type="BITSTR-RBT" Name="func.rbt"/>
   <File Type="BITSTR-NKY" Name="func.nky"/>
   <File Type="BG-DRC" Name="func.drc"/>
-  <File Type="RDI-RDI" Name="func.vdi"/>
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>

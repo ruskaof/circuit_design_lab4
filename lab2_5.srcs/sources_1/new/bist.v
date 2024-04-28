@@ -23,15 +23,18 @@ reg [2:0] state;
 
 assign busy_o = (state != IDLE);
 
+reg [7:0] tests_iterations_n = 0;
 reg [7:0] tests_n = 0;
 
-wire is_test;
+wire is_test_btn_o;
+reg is_test_now = 0;
+reg prev_is_test_now = 0;
 
 button test_button (
     .clk_i(clk_i),
     .rst_i(rst_i),
     .in(test_btn_i),
-    .out(is_test)
+    .out(is_test_btn_o)
 );
 
 reg [7:0] a_func_i;
@@ -94,6 +97,7 @@ always @(posedge clk_i) begin
     if (rst_i) begin
         y_o <= 0;
         state <= IDLE;
+        tests_iterations_n <= 0;
         tests_n <= 0;
         a_func_i <= 0;
         b_func_i <= 0;
@@ -103,11 +107,15 @@ always @(posedge clk_i) begin
         crc8_start <= 0;
         crc8_input <= 0;
     end else begin
+        prev_is_test_now <= is_test_btn_o;
+        if (prev_is_test_now != is_test_btn_o && is_test_btn_o) begin
+            is_test_now <= ~is_test_now;
+        end
         case (state)
             IDLE:
                 begin
                     if (start_i) begin
-                        if (is_test) begin
+                        if (is_test_now) begin
                             state <= NEW_TEST_START;
                         end else begin
                             state <= FUNC_PREPARE;
@@ -116,27 +124,27 @@ always @(posedge clk_i) begin
                 end
             LFSR_PREPARE:
                 begin
-                    $display("LFSR_PREPARE");
+                    // $display("LFSR_PREPARE");
                     lfsr1_start <= 1;
                     lfsr2_start <= 1;
                     state <= FUNC_PREPARE;
                 end
             FUNC_PREPARE:
                 begin
-                    $display("FUNC_PREPARE");
+                    // $display("FUNC_PREPARE");
                     lfsr1_init <= lfsr1_o;
                     lfsr2_init <= lfsr2_o;
                     lfsr1_start <= 0;
                     lfsr2_start <= 0;
 
-                    if (is_test) begin
-                        $display("test mode enabled, launching function with a=%d, b=%d", lfsr1_o, lfsr2_o);
+                    if (is_test_now) begin
+                        // $display("test mode enabled, launching function with a=%d, b=%d", lfsr1_o, lfsr2_o);
                         a_func_i <= lfsr1_o;
                         b_func_i <= lfsr2_o;
                         start_func_i <= 1;
                         state <= FUNC_WAIT;
                     end else begin
-                        $display("test mode disabled, launching function with a=%d, b=%d", a_i, b_i);
+                        // $display("test mode disabled, launching function with a=%d, b=%d", a_i, b_i);
                         a_func_i <= a_i;
                         b_func_i <= b_i;
                         start_func_i <= 1;
@@ -148,12 +156,12 @@ always @(posedge clk_i) begin
                     // $display("FUNC_WAIT");
                     start_func_i <= 0;
                     if (~busy_func_o && ~start_func_i) begin
-                        if (is_test) begin
+                        if (is_test_now) begin
                             crc8_input <= y_func_o;
                             crc8_start <= 1;
                             state <= CRC8_WAIT;
                         end else begin
-                            $display("calc finished, returning to idle; Result is %d", y_func_o);
+                            // $display("calc finished, returning to idle; Result is %d", y_func_o);
                             y_o [3:0] <= y_func_o;
                             state <= IDLE;
                         end
@@ -164,7 +172,7 @@ always @(posedge clk_i) begin
                     // $display("CRC8_WAIT");
                     crc8_start <= 0;
                     if (~crc8_busy && ~crc8_start) begin
-                        $display("test finished, returning to idle; Result crc %d, tests_n %d", tests_n, crc8_o);
+                        // $display("test finished, returning to idle; Result crc %d, tests_iterations_n %d, tests_n %d", crc8_o, tests_iterations_n, tests_n);
                         y_o [7:0] <= crc8_o;
                         y_o [15:8] <= tests_n;
                         state <= NEW_TEST_START;
@@ -172,11 +180,13 @@ always @(posedge clk_i) begin
                 end
             NEW_TEST_START:
                 begin
-                    $display("NEW_TEST_START, tests_n=%d", tests_n);
-                    if (tests_n == 255) begin
+                    $display("NEW_TEST_START, tests_iterations_n=%d, tests_n = %d", tests_iterations_n, tests_n);
+                    if (tests_iterations_n == 255) begin
                         state <= IDLE;
-                    end else begin
                         tests_n <= tests_n + 1;
+                        tests_iterations_n <= 0;
+                    end else begin
+                        tests_iterations_n <= tests_iterations_n + 1;
                         state <= LFSR_PREPARE;
                     end
                 end

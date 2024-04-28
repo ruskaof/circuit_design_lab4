@@ -8,7 +8,6 @@ module bist_testmode_tb;
     wire [15:0] y;
     wire busy;
 
-    // Instantiate the bist module
     bist uut (
         .clk_i(clk),
         .rst_i(rst),
@@ -20,14 +19,11 @@ module bist_testmode_tb;
         .busy_o(busy)
     );
 
-    // Clock generation
     always begin
         #5 clk = ~clk;
     end
 
-    // Testbench stimulus
     initial begin
-        // Reset
         clk = 0;
         rst = 1;
         start = 0;
@@ -36,13 +32,12 @@ module bist_testmode_tb;
         test_btn = 0;
         #10;
 
-        // Release reset
         rst = 0;
         #10;
         test_btn = 1;
         #1000;
+        test_btn = 0;
 
-        // Apply some inputs and observe the outputs
         start = 1;
         a = 8'hAA;
         b = 8'hBB;
@@ -50,17 +45,20 @@ module bist_testmode_tb;
 
         start = 0;
 
-        // wait till bist is not busy
-
         while (busy) begin
             #20;
         end
 
-        $display("Result for a = %d, b = %d is y = %d", a, b, y);
-    end
-
-    // Monitor
-    initial begin
-        $monitor("At time %d, y = %h, busy = %b", $time, y, busy);
+        $display("Result for a = %d, b = %d, crc8 = %d, tests_n = %d", a, b, y[7:0], y[15:8]);
+        
+        start = 1;
+        #10;
+        start = 0;
+        
+        while (busy) begin
+            #20;
+        end
+        
+        $display("Result for a = %d, b = %d, crc8 = %d, tests_n = %d", a, b, y[7:0], y[15:8]);
     end
 endmodule

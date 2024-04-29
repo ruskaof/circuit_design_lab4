@@ -37,7 +37,7 @@ cuberoot cuberoot_inst (
 
 reg [7:0] x_r;
 reg start_r;
-wire [1:0] root_busy_r;
+wire root_busy_r;
 wire [3:0] result_r;
 root root1 (
     .clk_i(clk_i),

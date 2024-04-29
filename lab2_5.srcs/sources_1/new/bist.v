@@ -40,6 +40,17 @@ button test_button (
     .out(is_test_btn_o)
 );
 
+wire is_start_pressed;
+reg is_starting_now = 0;
+reg prev_is_starting_now = 0;
+
+button start_button (
+    .clk_i(clk_i),
+    .rst_i(rst_i),
+    .in(start_i),
+    .out(is_start_pressed)
+);
+
 reg [7:0] a_func_i;
 reg [7:0] b_func_i;
 reg start_func_i;
@@ -111,20 +122,31 @@ always @(posedge clk_i) begin
         start_func_i <= 0;
         lfsr1_start <= 0;
         lfsr2_start <= 0;
+        lfsr2_init <= 8'b11111011;
+        lfsr1_init <= 8'b11111011;
         crc8_start <= 0;
         crc8_input <= 0;
+        is_test_now <= 0;
     end else begin
         prev_is_test_now <= is_test_btn_o;
         if (prev_is_test_now != is_test_btn_o && is_test_btn_o) begin
             is_test_now <= ~is_test_now;
         end
+        
+        prev_is_starting_now <= is_start_pressed;
+        if (prev_is_starting_now != is_start_pressed && is_start_pressed) begin
+            is_starting_now <= ~is_starting_now;
+        end
         case (state)
             IDLE:
                 begin
-                    if (start_i) begin
+                    if (is_starting_now) begin
+                        is_starting_now <= 0;
                         if (is_test_now) begin
+                            // $display("starting calc in test mode");
                             state <= NEW_TEST_START;
                         end else begin
+                            // $display("starting calc in normal mode");
                             state <= FUNC_PREPARE;
                         end
                     end
@@ -148,10 +170,10 @@ always @(posedge clk_i) begin
             FUNC_PREPARE:
                 begin
                     // $display("%d", lfsr2_o);
-                    lfsr1_init <= lfsr1_o;
-                    lfsr2_init <= lfsr2_o;
 
                     if (is_test_now) begin
+                        lfsr1_init <= lfsr1_o;
+                        lfsr2_init <= lfsr2_o;
                         // $display("test mode enabled, launching function with a=%d, b=%d", lfsr1_o, lfsr2_o);
                         a_func_i <= lfsr1_o;
                         b_func_i <= lfsr2_o;
@@ -188,8 +210,6 @@ always @(posedge clk_i) begin
                     crc8_start <= 0;
                     if (~crc8_busy && ~crc8_start) begin
                         // $display("test finished, returning to idle; Result crc %d, tests_iterations_n %d, tests_n %d", crc8_o, tests_iterations_n, tests_n);
-                        y_o [7:0] <= crc8_o;
-                        y_o [15:8] <= tests_n;
                         state <= NEW_TEST_START;
                     end
                 end
@@ -197,6 +217,8 @@ always @(posedge clk_i) begin
                 begin
                     // $display("NEW_TEST_START, tests_iterations_n=%d, tests_n = %d", tests_iterations_n, tests_n);
                     if (tests_iterations_n == 255) begin
+                        y_o [7:0] <= crc8_o;
+                        y_o [15:8] <= tests_n + 1;
                         state <= IDLE;
                         tests_n <= tests_n + 1;
                         tests_iterations_n <= 0;

@@ -41,9 +41,9 @@ module bist_testmode_tb;
         test_btn = 0;
 
         start = 1;
-        a = 8'hAA;
-        b = 8'hBB;
-        #10;
+        a = 8'b10000000;
+        b = 8'b10000000;
+        #10000;
 
         start = 0;
 
@@ -51,40 +51,40 @@ module bist_testmode_tb;
             #20;
         end
 
-        $display("Result for a = %d, b = %d, crc8 = %d, tests_n = %d, y = %d, test_mode_enabled=%d", a, b, y[7:0], y[15:8], y, test_mode_enabled);
+        $display("Result for a = %d, b = %d, crc8 = %b, tests_n = %d, y = %d, test_mode_enabled=%d", a, b, y[7:0], y[15:8], y, test_mode_enabled);
         
         start = 1;
-        #10;
+        #10000;
         start = 0;
         
         while (busy) begin
             #20;
         end
         
-        $display("Result for a = %d, b = %d, crc8 = %d, tests_n = %d, y = %d, test_mode_enabled=%d", a, b, y[7:0], y[15:8], y, test_mode_enabled);
+        $display("Result for a = %d, b = %d, crc8 = %b, tests_n = %d, y = %d, test_mode_enabled=%d", a, b, y[7:0], y[15:8], y, test_mode_enabled);
         
         start = 1;
-        #10;
+        #10000;
         start = 0;
         
         while (busy) begin
             #20;
         end
         
-        $display("Result for a = %d, b = %d, crc8 = %d, tests_n = %d, y = %d, test_mode_enabled=%d", a, b, y[7:0], y[15:8], y, test_mode_enabled);
+        $display("Result for a = %d, b = %d, crc8 = %b, tests_n = %d, y = %d, test_mode_enabled=%d", a, b, y[7:0], y[15:8], y, test_mode_enabled);
         
         test_btn = 1;
         #1000;
         test_btn = 0;
         
         start = 1;
-        #10;
+        #10000;
         start = 0;
         
         while (busy) begin
             #20;
         end
         
-        $display("Result for a = %d, b = %d, crc8 = %d, tests_n = %d, y = %d, test_mode_enabled=%d", a, b, y[7:0], y[15:8], y, test_mode_enabled);
+        $display("Result for a = %d, b = %d, crc8 = %b, tests_n = %d, y = %d, test_mode_enabled=%d", a, b, y[7:0], y[15:8], y, test_mode_enabled);
     end
 endmodule

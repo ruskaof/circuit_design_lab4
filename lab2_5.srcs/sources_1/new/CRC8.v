@@ -41,6 +41,7 @@ always @(posedge clk_i) begin
                 TAKE_CUR_BIT:
                     begin
                         if (counter == 2) begin
+                            // $display("crc8 calculated: %d", register);
                             state <= IDLE;
                         end else begin
                             bit <= data_i[counter];

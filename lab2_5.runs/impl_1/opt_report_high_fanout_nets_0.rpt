@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-| Date         : Mon Apr 29 12:25:27 2024
+| Date         : Mon Apr 29 14:15:14 2024
 | Host         : LAPTOP-9MCJAFV3 running 64-bit major release  (build 9200)
 | Command      : report_high_fanout_nets -file opt_report_high_fanout_nets_0.rpt
 | Design       : bist
@@ -16,16 +16,16 @@ High Fan-out Nets Information
 +---------------------------------------------------+--------+-------------+
 | Net Name                                          | Fanout | Driver Type |
 +---------------------------------------------------+--------+-------------+
-| rst_i_IBUF                                        |    211 | IBUF        |
+| rst_i_IBUF                                        |    227 | IBUF        |
 | func_inst/cuberoot_inst/mul1_inst/ctr[2]_i_1_n_0  |     35 | LUT3        |
 | func_inst/cuberoot_inst/mul1_inst/mult1_start_reg |     32 | LUT4        |
 | func_inst/cuberoot_inst/s[2]                      |     29 | FDRE        |
 | func_inst/cuberoot_inst/s[3]                      |     28 | FDRE        |
 | func_inst/cuberoot_inst/s[4]                      |     28 | FDRE        |
-| func_inst/cuberoot_inst/mul1_inst/mult1_busy      |     26 | FDRE        |
-| test_mode_enabled_o_OBUF                          |     25 | FDRE        |
-| func_inst/cuberoot_inst/s[1]                      |     24 | FDRE        |
-| func_inst/cuberoot_inst/mul1_inst/ctr[1]          |     23 | FDRE        |
+| tests_iterations_n                                |     28 | FDRE        |
+| func_inst/cuberoot_inst/mul1_inst/mult1_busy      |     27 | FDRE        |
+| test_mode_enabled_o_OBUF                          |     26 | FDRE        |
+| func_inst/cuberoot_inst/mul1_inst/ctr[1]          |     24 | FDRE        |
 +---------------------------------------------------+--------+-------------+
 
 

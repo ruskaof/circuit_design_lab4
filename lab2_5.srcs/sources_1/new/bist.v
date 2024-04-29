@@ -147,7 +147,7 @@ always @(posedge clk_i) begin
                 end
             FUNC_PREPARE:
                 begin
-                    // $display("FUNC_PREPARE");
+                    // $display("%d", lfsr2_o);
                     lfsr1_init <= lfsr1_o;
                     lfsr2_init <= lfsr2_o;
 

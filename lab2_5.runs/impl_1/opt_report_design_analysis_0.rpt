@@ -1,0 +1,29 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
+| Date         : Mon Apr 29 12:25:27 2024
+| Host         : LAPTOP-9MCJAFV3 running 64-bit major release  (build 9200)
+| Command      : report_design_analysis -logic_level_distribution -file opt_report_design_analysis_0.rpt
+| Design       : bist
+| Device       : xc7a100t
+| Design State : Optimized
+---------------------------------------------------------------------------------------------------------
+
+Report Design Analysis
+
+Table of Contents
+-----------------
+1. Logic Level Distribution
+
+1. Logic Level Distribution
+---------------------------
+
++-----------------+-------------+-----+-----+----+----+----+----+----+----+
+| End Point Clock | Requirement |  0  |  1  |  2 |  3 |  4 |  5 |  6 |  7 |
++-----------------+-------------+-----+-----+----+----+----+----+----+----+
+| clk             | 10.000ns    | 205 | 323 | 72 | 62 | 19 | 13 | 27 | 21 |
++-----------------+-------------+-----+-----+----+----+----+----+----+----+
+* Columns represent the logic levels per end point clock
+** Distribution is for top worst 742 paths
+
+

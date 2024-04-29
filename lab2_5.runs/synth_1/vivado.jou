@@ -2,8 +2,8 @@
 # Vivado v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
 # IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Sun Apr 28 22:27:09 2024
-# Process ID: 4632
+# Start of session at: Mon Apr 29 12:22:59 2024
+# Process ID: 21084
 # Current directory: C:/Users/199-4/lab2_5/lab2_5.runs/synth_1
 # Command line: vivado.exe -log bist.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source bist.tcl
 # Log file: C:/Users/199-4/lab2_5/lab2_5.runs/synth_1/bist.vds

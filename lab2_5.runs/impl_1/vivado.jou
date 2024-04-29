@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Mon Apr 29 12:26:20 2024
+# Process ID: 26148
+# Current directory: C:/Users/199-4/lab2_5/lab2_5.runs/impl_1
+# Command line: vivado.exe -log bist.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source bist.tcl -notrace
+# Log file: C:/Users/199-4/lab2_5/lab2_5.runs/impl_1/bist.vdi
+# Journal file: C:/Users/199-4/lab2_5/lab2_5.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source bist.tcl -notrace
